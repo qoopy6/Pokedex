@@ -1,0 +1,16 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 12px;
+}
+
+/* 画面レイアウト */
+.task {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+}
+
+/* 色付き項目 */
+.task.mark-important {
+  background: #fff3cd;
+}
