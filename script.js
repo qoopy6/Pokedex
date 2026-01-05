@@ -1,123 +1,88 @@
-/* =========================
-   データ定義
-========================= */
+/* ========= 状態 ========= */
 
-// カテゴリ定義（※項目IDだけ管理）
-const categories = {
-  basic: {
-    name: "基礎",
-    items: ["task_001", "task_002", "task_003"]
-  },
-  advanced: {
-    name: "応用",
-    items: ["task_101", "task_102"]
-  }
-};
+const checkedSet = new Set();
+let currentCategory = null;
 
-// タスク定義（※表示文言＋色フラグ）
-const tasks = {
-  task_001: { text: "環境構築を完了", mark: "important" },
-  task_002: { text: "基本操作を確認", mark: null },
-  task_003: { text: "必須設定を確認", mark: "warning" },
-  task_101: { text: "応用課題を理解", mark: null },
-  task_102: { text: "最適化を試す", mark: "important" }
-};
+const categoryList = document.getElementById("categoryList");
+const taskView = document.getElementById("taskView");
+const taskList = document.getElementById("taskList");
+const fixedHeader = document.getElementById("fixedHeader");
+const headerTitle = document.getElementById("headerTitle");
+const backBtn = document.getElementById("backBtn");
+const chartToggle = document.getElementById("chartToggle");
+const chart = document.getElementById("progressChart");
 
-/* =========================
-   状態
-========================= */
-
-const checkedSet = new Set();   // チェック済みID
-let currentCategory = null;    // 選択中カテゴリ
-
-/* =========================
-   localStorage
-========================= */
-
-function saveChecked() {
-  localStorage.setItem("checked", JSON.stringify([...checkedSet]));
-}
+/* ========= localStorage ========= */
 
 function loadChecked() {
-  const saved = JSON.parse(localStorage.getItem("checked") || "[]");
-  saved.forEach(id => checkedSet.add(id));
+  const data = JSON.parse(localStorage.getItem("checkedItems") || "[]");
+  data.forEach(id => checkedSet.add(id));
 }
 
-/* =========================
-   カテゴリ画面
-========================= */
+function saveChecked() {
+  localStorage.setItem("checkedItems", JSON.stringify([...checkedSet]));
+}
+
+/* ========= カテゴリ描画 ========= */
 
 function renderCategories() {
-  document.getElementById("header").textContent = "カテゴリ選択";
-  document.getElementById("taskView").hidden = true;
+  fixedHeader.hidden = true;
+  taskView.hidden = true;
+  categoryList.innerHTML = "";
 
-  const root = document.getElementById("categoryList");
-  root.innerHTML = "";
-
-  for (const key in categories) {
-    const { name, items } = categories[key];
-    const done = items.filter(id => checkedSet.has(id)).length;
+  categories.forEach(cat => {
+    const done = cat.items.filter(id => checkedSet.has(id)).length;
 
     const btn = document.createElement("button");
-    btn.textContent = `${name} ${done}/${items.length}`;
+    btn.textContent = `${cat.name} ${done}/${cat.items.length}`;
 
-    // 全達成で色変更
-    if (done === items.length) {
+    if (done === cat.items.length) {
       btn.classList.add("complete");
     }
 
-    btn.onclick = () => openCategory(key);
-    root.appendChild(btn);
-  }
+    btn.onclick = () => openCategory(cat);
+    categoryList.appendChild(btn);
+  });
 }
 
-/* =========================
-   カテゴリを開く
-========================= */
+/* ========= カテゴリを開く ========= */
 
-function openCategory(key) {
-  currentCategory = key;
+function openCategory(cat) {
+  currentCategory = cat;
+  categoryList.innerHTML = "";
+  taskView.hidden = false;
 
-  document.getElementById("categoryList").innerHTML = "";
-  document.getElementById("taskView").hidden = false;
-  document.getElementById("currentCategory").textContent =
-    categories[key].name;
+  fixedHeader.hidden = false;
+  headerTitle.textContent = cat.name;
 
   renderTasks();
 }
 
-/* =========================
-   タスク描画
-========================= */
+/* ========= タスク描画 ========= */
 
 function renderTasks() {
-  const root = document.getElementById("taskList");
-  root.innerHTML = "";
+  taskList.innerHTML = "";
 
-  categories[currentCategory].items.forEach(id => {
+  currentCategory.items.forEach(id => {
     const task = tasks[id];
 
     const label = document.createElement("label");
     label.className = "task";
 
-    // 特定項目のみ最初から色付け
     if (task.mark) {
       label.classList.add(`mark-${task.mark}`);
     }
 
     label.innerHTML = `
-      <input type="checkbox" data-id="${id}"
-        ${checkedSet.has(id) ? "checked" : ""}>
+      <input type="checkbox" data-id="${id}" ${checkedSet.has(id) ? "checked" : ""}>
       <span>${task.text}</span>
     `;
 
-    root.appendChild(label);
+    taskList.appendChild(label);
   });
 }
 
-/* =========================
-   チェック操作
-========================= */
+/* ========= チェック操作 ========= */
 
 document.addEventListener("change", e => {
   if (!e.target.matches("input[type=checkbox]")) return;
@@ -133,17 +98,50 @@ document.addEventListener("change", e => {
   saveChecked();
 });
 
-/* =========================
-   戻るボタン
-========================= */
+/* ========= 戻る ========= */
 
-document.getElementById("backBtn").onclick = () => {
+backBtn.onclick = () => {
   renderCategories();
 };
 
-/* =========================
-   初期化
-========================= */
+/* ========= 円グラフ ========= */
+
+function drawPie(done, total) {
+  const ctx = chart.getContext("2d");
+  ctx.clearRect(0, 0, 300, 300);
+
+  const angle = (done / total) * Math.PI * 2;
+
+  ctx.fillStyle = "#4caf50";
+  ctx.beginPath();
+  ctx.moveTo(150, 150);
+  ctx.arc(150, 150, 100, 0, angle);
+  ctx.fill();
+
+  ctx.fillStyle = "#eee";
+  ctx.beginPath();
+  ctx.moveTo(150, 150);
+  ctx.arc(150, 150, 100, angle, Math.PI * 2);
+  ctx.fill();
+}
+
+chartToggle.onclick = () => {
+  chart.hidden = !chart.hidden;
+
+  if (!chart.hidden) {
+    let done = 0;
+    let total = 0;
+
+    categories.forEach(cat => {
+      total += cat.items.length;
+      done += cat.items.filter(id => checkedSet.has(id)).length;
+    });
+
+    drawPie(done, total);
+  }
+};
+
+/* ========= 初期化 ========= */
 
 loadChecked();
 renderCategories();
