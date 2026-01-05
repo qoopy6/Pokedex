@@ -6,11 +6,28 @@ body {
 /* 画面レイアウト */
 .task {
   display: flex;
-  gap: 12px;
-  padding: 14px;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
 }
+
+.task input {
+  margin-right: 12px;
+}
+
 
 /* 色付き項目 */
 .task.mark-important {
   background: #fff3cd;
+}
+
+#fixedHeader {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 12px;
+  border-bottom: 1px solid #ccc;
+  z-index: 10;
 }
