@@ -8,16 +8,25 @@
 </head>
 <body>
 
-<h1 id="header">カテゴリ選択</h1>
+<!-- 固定ヘッダー（カテゴリ表示中のみ） -->
+<header id="fixedHeader" hidden>
+  <button id="backBtn">←</button>
+  <span id="headerTitle"></span>
+</header>
 
+<!-- カテゴリ一覧 -->
 <div id="categoryList"></div>
 
+<!-- タスク表示 -->
 <div id="taskView" hidden>
-  <button id="backBtn">← カテゴリに戻る</button>
-  <h2 id="currentCategory"></h2>
   <div id="taskList"></div>
 </div>
 
+<!-- 進捗表示 -->
+<button id="chartToggle">進捗を見る</button>
+<canvas id="progressChart" width="300" height="300" hidden></canvas>
+
+<script src="data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
