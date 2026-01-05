@@ -1,3 +1,5 @@
+alert("script.js loaded");
+
 /* ========= 状態 ========= */
 
 const checkedSet = new Set();
