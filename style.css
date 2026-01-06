@@ -42,12 +42,159 @@ button.complete {
 }
 
 /* 色付きタスク（チェックとは無関係） */
-.task.mark-important {
+.task.mark-red {
   background: #fff3cd;
 }
 
-.task.mark-warning {
+.task.mark-green {
   background: #fdecea;
+}
+
+.task.mark-blue {
+  background: #d1ecf1;
+}
+
+.task.mark-yellow {
+  background: #d1ecf1;
+}
+
+.task.mark-gold {
+  background: #d1ecf1;
+}
+
+.task.mark-silver {
+  background: #d1ecf1;
+}
+
+.task.mark- crystal {
+  background: #d1ecf1;
+}
+
+.task.mark-ruby {
+  background: #d1ecf1;
+}
+
+.task.marksapphire {
+  background: #d1ecf1;
+}
+
+.task.mark-emerald {
+  background: #d1ecf1;
+}
+
+.task.mark-diamond {
+  background: #d1ecf1;
+}
+
+.task.mark-perl {
+  background: #d1ecf1;
+}
+
+.task.mark- platinum {
+  background: #d1ecf1;
+}
+
+.task.mark-black {
+  background: #d1ecf1;
+}
+.task.mark-white {
+  background: #d1ecf1;
+}
+
+.task.mark-xx {
+  background: #d1ecf1;
+}
+
+.task.mark-yy {
+  background: #d1ecf1;
+}
+
+.task.mark-sun {
+  background: #d1ecf1;
+}
+
+.task.mark-moon {
+  background: #d1ecf1;
+}
+
+.task.mark-ultrasun {
+  background: #d1ecf1;
+}
+
+.task.mark-ultramoon {
+  background: #d1ecf1;
+}
+
+.task.mark-sword {
+  background: #d1ecf1;
+}
+
+.task.mark-shield {
+  background: #d1ecf1;
+}
+
+.task.mark-scarlet {
+  background: #d1ecf1;
+}
+
+.task.mark- violet {
+  background: #d1ecf1;
+}
+
+.task.mark-fred {
+  background: #d1ecf1;
+}
+
+.task.mark-lgreen {
+  background: #d1ecf1;
+}
+
+.task.mark-hgold {
+  background: #d1ecf1;
+}
+
+.task.mark-ssilver {
+  background: #d1ecf1;
+}
+
+.task.mark-oruby {
+  background: #d1ecf1;
+}
+
+.task.mark-asapphire {
+  background: #d1ecf1;
+}
+
+.task.mark-bdiamond {
+  background: #d1ecf1;
+}
+
+.task.mark-sperl {
+  background: #d1ecf1;
+}
+
+.task.mark-pika {
+  background: #d1ecf1;
+}
+
+.task.mark-bui {
+  background: #d1ecf1;
+}
+
+.task.mark-pla {
+  background: #d1ecf1;
+}
+
+.task.mark-plza {
+  background: #d1ecf1;
+}
+
+.task.mark-go {
+  background: #d1ecf1;
+}
+
+.task.mark-illusion {
+  background: #d1ecf1;
 }
 
 /* 円グラフ */
