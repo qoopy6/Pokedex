@@ -1,4 +1,6 @@
 // カテゴリ定義（自分で管理する前提）
+console.log("DATA VERSION: 15 categories");
+
 // ===== カテゴリ定義 =====
 const categories = [
   { id: "cat01", name: "基礎", items: ["task_001","task_002","task_003"] },
