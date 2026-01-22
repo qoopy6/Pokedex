@@ -1,3 +1,9 @@
+function debugLog(msg) {
+  const box = document.getElementById("debug");
+  if (!box) return;
+  box.innerHTML += msg + "<br>";
+}
+
 /* ========= 状態 ========= */
 
 const checkedSet = new Set();
