@@ -1,4 +1,4 @@
-alert("script.js is running");
+
 
 debugLog("script.js loaded");
 
@@ -155,3 +155,55 @@ chartToggle.onclick = () => {
 
 loadChecked();
 renderCategories();
+
+function showCategory(categoryId) {
+  // デバッグ表示（黒い箱に出る）
+  if (typeof debugLog === "function") {
+    debugLog("showCategory START: " + categoryId);
+  }
+
+  // 選択されたカテゴリを取得
+  const category = categories.find(c => c.id === categoryId);
+  if (!category) return;
+
+  // カテゴリ一覧を隠す
+  document.getElementById("categoryList").style.display = "none";
+
+  // タスク表示エリアを出す
+  const taskView = document.getElementById("taskView");
+  taskView.hidden = false;
+
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = "";
+
+  // ヘッダー表示
+  const header = document.getElementById("fixedHeader");
+  const title = document.getElementById("headerTitle");
+  header.hidden = false;
+  title.textContent = category.name;
+
+  // タスクを描画
+  category.items.forEach(id => {
+    const task = tasks[id];
+    if (!task) {
+      if (typeof debugLog === "function") {
+        debugLog("missing task: " + id);
+      }
+      return;
+    }
+
+    const label = document.createElement("label");
+    label.className = "task";
+
+    if (task.mark) {
+      label.classList.add(`mark-${task.mark}`);
+    }
+
+    label.innerHTML = `
+      <input type="checkbox" data-id="${id}">
+      <span>${task.text || id}</span>
+    `;
+
+    taskList.appendChild(label);
+  });
+}
