@@ -1,3 +1,5 @@
+alert("script.js is running");
+
 debugLog("script.js loaded");
 
 function debugLog(msg) {
