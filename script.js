@@ -151,7 +151,7 @@ renderCategories();
 function showCategory(categoryId) {
   // デバッグ表示（黒い箱に出る）
   if (typeof debugLog === "function") {
-    debugLog("showCategory START: " + categoryId);
+alert("showCategory START: " + categoryId);
   }
 
   // 選択されたカテゴリを取得
