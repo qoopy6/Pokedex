@@ -156,7 +156,9 @@ alert("showCategory START: " + categoryId);
 
   // 選択されたカテゴリを取得
   const category = categories.find(c => c.id === categoryId);
-  if (!category) return;
+alert("category found: " + !!category);
+alert("items length: " + category.items.length);
+
 
   // カテゴリ一覧を隠す
   document.getElementById("categoryList").style.display = "none";
