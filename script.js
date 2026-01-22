@@ -1,3 +1,5 @@
+debugLog("script.js loaded");
+
 function debugLog(msg) {
   const box = document.getElementById("debug");
   if (!box) return;
