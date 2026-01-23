@@ -148,11 +148,7 @@ chartToggle.onclick = () => {
 loadChecked();
 renderCategories();
 
-function showCategory(categoryId) {
-  // デバッグ表示（黒い箱に出る）
-  if (typeof debugLog === "function") {
-alert("showCategory START: " + categoryId);
-  }
+
 
   // 選択されたカテゴリを取得
   const category = categories.find(c => c.id === categoryId);
