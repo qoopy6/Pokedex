@@ -1,4 +1,4 @@
-alert("script.js is running");
+
 
 
 /* ========= 状態 ========= */
